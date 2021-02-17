@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
+import { filter, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { MyTodoListState } from '../../../../root-store/my-todo-list/state/my-todo.state';
 import * as MyTodoListActions from '../../../../root-store/my-todo-list/actions/my-todo-list.actions';
 import {
   MyTodoList,
 } from '../../../../root-store/my-todo-list/state/my-todo-list-selectors.state';
-import { Observable } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
-import { filter, map, tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
 import { TodoItemFormComponent } from '../../components/todo-item-form/todo-item-form.component';
 import { TodoItemResponse } from '../../../../shared/interfaces/response/todo-item.response';
 import { ConfirmPopupComponent } from '../../components/confirm-popup/confirm-popup.component';
