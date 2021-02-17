@@ -13,12 +13,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 
 
 @NgModule({
   declarations: [
     MyTodoListComponent,
-    TodoItemFormComponent
+    TodoItemFormComponent,
+    ConfirmPopupComponent
+  ],
+  entryComponents: [
+    TodoItemFormComponent,
+    ConfirmPopupComponent
   ],
   imports: [
     CommonModule,

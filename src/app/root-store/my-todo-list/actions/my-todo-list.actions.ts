@@ -1,6 +1,8 @@
-import { createAction, props } from '@ngrx/store';
-import { TodoItemResponse } from '../../../shared/interfaces/response/todo-item.response';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { createAction, props } from '@ngrx/store';
+
+import { TodoItemResponse } from '../../../shared/interfaces/response/todo-item.response';
 import { TodoItemRequest } from '../../../shared/interfaces/request/todo-item.request';
 
 const page = 'My Todo List';
@@ -26,9 +28,9 @@ export const UpdateTodoItemError = createAction(`[${page}] Update TODO Item Erro
   props<{ error: HttpErrorResponse }>());
 
 export const RemoveTodoItem = createAction(`[${page}] Remove TODO Item`,
-  props<{ id: string }>());
+  props<{ todoItem: TodoItemResponse }>());
 export const RemoveTodoItemSuccess = createAction(`[${page}] Remove TODO Item Success`,
-  props<{ id: string }>());
+  props<{ todoItem: TodoItemResponse }>());
 export const RemoveTodoItemError = createAction(`[${page}] Remove TODO Item Error`,
   props<{ error: HttpErrorResponse }>());
 

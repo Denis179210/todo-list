@@ -41,9 +41,19 @@ export class MyTodoListService {
     }).pipe(debounceTime(1000));
   }
 
-  updateTodoItem({ todoItem }: any) {
+  updateTodoItem(todoItem: any) {
 
     /* TODO: invoke PATCH API call using http*/
+    return of({
+      data: {
+        ...todoItem,
+      }
+    }).pipe(debounceTime(1000));
+  }
+
+  removeTodoItem(todoItem: any) {
+
+    /* TODO: invoke DELETE API call using http*/
     return of({
       data: {
         ...todoItem,

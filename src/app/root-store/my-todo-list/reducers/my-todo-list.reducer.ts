@@ -1,8 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { createEntityAdapter } from '@ngrx/entity';
+
 import { MyTodoListInitialState, MyTodoListState } from '../state/my-todo.state';
 
 import * as MyTodoListActions from '../actions/my-todo-list.actions';
-import { createEntityAdapter } from '@ngrx/entity';
 import { TodoItemResponse } from '../../../shared/interfaces/response/todo-item.response';
 
 const todoItemAdapter = createEntityAdapter<TodoItemResponse>();
@@ -81,6 +82,28 @@ export const reducer = createReducer(getTodoListInitialState,
       loaded: false
     };
   }),
+  on(MyTodoListActions.RemoveTodoItem, (state: MyTodoListState) => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false
+    };
+  }),
+  on(MyTodoListActions.RemoveTodoItemSuccess, (state: MyTodoListState, { todoItem: { id } }) => {
+    return todoItemAdapter.removeOne(id,  {
+      ...state,
+      loading: true,
+      loaded: false
+    });
+  }),
+  on(MyTodoListActions.RemoveTodoItemError, (state: MyTodoListState, { error }) => {
+    console.error(error);
+    return {
+      ...state,
+      loading: true,
+      loaded: false
+    };
+  })
 );
 
 export const {

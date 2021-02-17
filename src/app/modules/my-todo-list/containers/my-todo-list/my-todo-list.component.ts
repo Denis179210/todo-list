@@ -11,6 +11,7 @@ import { filter, map, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoItemFormComponent } from '../../components/todo-item-form/todo-item-form.component';
 import { TodoItemResponse } from '../../../../shared/interfaces/response/todo-item.response';
+import { ConfirmPopupComponent } from '../../components/confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-my-todo-list',
@@ -58,13 +59,35 @@ export class MyTodoListComponent implements OnInit {
       }
       })
       .afterClosed()
-      .subscribe((todoItem: any) => {
+      .subscribe(({ todoItem }: any) => {
         this.store.dispatch(MyTodoListActions.UpdateTodoItem({ todoItem }));
       })
   }
 
-  removeTodo() {
+  completeTodo(element) {
+    /* TODO: dispatch an action */
+  }
 
+  removeTodo({ target }, todoItem: TodoItemResponse) {
+    const position: any = {};
+      const triggerMetrics = (target as HTMLElement).getBoundingClientRect();
+      const relativeLeftSpace = 205;
+      const relativeTopSpace = 10;
+      position.left = `${triggerMetrics.left - relativeLeftSpace}px`;
+      position.top = `${triggerMetrics.top + triggerMetrics.height + relativeTopSpace}px`;
+    this.dialog.open(ConfirmPopupComponent, {
+      backdropClass: 'backdrop-transparent',
+      data: {
+        title: 'Are you sure you want to delete this item?'
+      },
+      position
+    }).afterClosed()
+      .pipe(
+        filter(v => !!v && v !== '_cancel')
+      )
+      .subscribe(() => {
+        this.store.dispatch(MyTodoListActions.RemoveTodoItem({ todoItem }))
+      })
   }
 
 }

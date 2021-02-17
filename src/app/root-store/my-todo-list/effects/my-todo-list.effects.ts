@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { catchError, map, mergeMap, pluck } from 'rxjs/operators';
 
 import * as MyTodoListActions from '../actions/my-todo-list.actions';
 import { MyTodoListService } from '../../../modules/my-todo-list/services/my-todo-list.service';
 import { TodoItemResponse } from '../../../shared/interfaces/response/todo-item.response';
-import { of } from 'rxjs';
 
 @Injectable()
 export class MyTodoListEffects {
@@ -55,6 +55,21 @@ export class MyTodoListEffects {
               pluck('data'),
               map((todoItem: TodoItemResponse) => MyTodoListActions.UpdateTodoItemSuccess({ todoItem })),
               catchError((error) => of(MyTodoListActions.UpdateTodoItemError({ error })))
+            )
+        )
+      )
+  )
+
+  removeTodoItems$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(MyTodoListActions.RemoveTodoItem),
+        mergeMap(({ todoItem: request }: any) =>
+          this.myTodoListService.removeTodoItem(request)
+            .pipe(
+              pluck('data'),
+              map((todoItem: TodoItemResponse) => MyTodoListActions.RemoveTodoItemSuccess({ todoItem })),
+              catchError((error) => of(MyTodoListActions.RemoveTodoItemError({ error })))
             )
         )
       )

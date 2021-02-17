@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TodoItemResponse } from '../../../../shared/interfaces/response/todo-item.response';
+
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { TodoItemResponse } from '../../../../shared/interfaces/response/todo-item.response';
 
 @Component({
   selector: 'app-todo-item-form',
