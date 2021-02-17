@@ -1,0 +1,12 @@
+.todo-item-form {
+  width: 350px;
+  height: 250px;
+  .input {
+    width: 100%;
+  }
+  .action-button {
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+  }
+}

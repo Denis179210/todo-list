@@ -1,6 +1,8 @@
 export interface TodoItemRequest {
-  // id: string;
-  // status: any;
-  priority: any;
+  name: string;
+  description: string;
   expiredAt: any;
+  completedAt: string;
+  createdAt: string;
+  important: boolean;
 }

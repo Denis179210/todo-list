@@ -20,11 +20,41 @@ export class MyTodoListEffects {
       .pipe(
         ofType(MyTodoListActions.GetTodoItems),
         mergeMap(() =>
-          this.myTodoListService.getTotoList()
+          this.myTodoListService.getTodoList()
             .pipe(
               pluck('data'),
               map((todoItems: Array<TodoItemResponse>) => MyTodoListActions.GetTodoItemsSuccess({ todoItems })),
               catchError((error) => of(MyTodoListActions.GetTodoItemsError({ error })))
+            )
+        )
+      )
+  )
+
+  createTodoItems$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(MyTodoListActions.CreateTodoItem),
+        mergeMap(({ todoItem: request }: any) =>
+          this.myTodoListService.createTodoItem(request)
+            .pipe(
+              pluck('data'),
+              map((todoItem: TodoItemResponse) => MyTodoListActions.CreateTodoItemSuccess({ todoItem })),
+              catchError((error) => of(MyTodoListActions.CreateTodoItemError({ error })))
+            )
+        )
+      )
+  )
+
+  editTodoItems$ = createEffect(() =>
+    this.actions$
+      .pipe(
+        ofType(MyTodoListActions.UpdateTodoItem),
+        mergeMap(({ todoItem: request }: any) =>
+          this.myTodoListService.updateTodoItem(request)
+            .pipe(
+              pluck('data'),
+              map((todoItem: TodoItemResponse) => MyTodoListActions.UpdateTodoItemSuccess({ todoItem })),
+              catchError((error) => of(MyTodoListActions.UpdateTodoItemError({ error })))
             )
         )
       )
